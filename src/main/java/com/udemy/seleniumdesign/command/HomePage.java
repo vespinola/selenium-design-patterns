@@ -35,16 +35,16 @@ public class HomePage {
     @FindBy(css = "div.jq-icon-error")
     private WebElement dangerAlert;
 
-    @FindBy(css = "div.alert-info")
+    @FindBy(css = "div.card-body div.row div:nth-child(2) div.alert-info")
     private WebElement dismissInfoAlert;
 
-    @FindBy(css = "div.alert-warning")
+    @FindBy(css = "div.card-body div.row div:nth-child(2) div.alert-warning")
     private WebElement dismissWarningAlert;
 
-    @FindBy(css = "div.alert-success")
+    @FindBy(css = "div.card-body div.row div:nth-child(2) div.alert-success")
     private WebElement dismissSuccessAlert;
 
-    @FindBy(css = "div.alert-danger")
+    @FindBy(css = "div.card-body div.row div:nth-child(2) div.alert-danger")
     private WebElement dismissDangerAlert;
 
     public HomePage(WebDriver driver) {
