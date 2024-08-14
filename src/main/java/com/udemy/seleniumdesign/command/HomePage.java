@@ -35,17 +35,18 @@ public class HomePage {
     @FindBy(css = "div.jq-icon-error")
     private WebElement dangerAlert;
 
-    @FindBy(css = "div.card-body div.row div:nth-child(2) div.alert-info")
+    //dismissal alert
+    @FindBy(css = "#main-wrapper > div > div > div:nth-child(3) > div > div > div > div > div:nth-child(2) > div.alert-info")
     private WebElement dismissInfoAlert;
 
-    @FindBy(css = "div.card-body div.row div:nth-child(2) div.alert-warning")
-    private WebElement dismissWarningAlert;
-
-    @FindBy(css = "div.card-body div.row div:nth-child(2) div.alert-success")
+    @FindBy(css = "#main-wrapper > div > div > div:nth-child(3) > div > div > div > div > div:nth-child(2) > div.alert-success")
     private WebElement dismissSuccessAlert;
 
-    @FindBy(css = "div.card-body div.row div:nth-child(2) div.alert-danger")
+    @FindBy(css = "#main-wrapper > div > div > div:nth-child(3) > div > div > div > div > div:nth-child(2) > div.alert-danger")
     private WebElement dismissDangerAlert;
+
+    @FindBy(css = "#main-wrapper > div > div > div:nth-child(3) > div > div > div > div > div:nth-child(2) > div.alert-warning")
+    private WebElement dismissWarnAlert;
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
@@ -65,7 +66,7 @@ public class HomePage {
                 new NotificationValidator(dangerBtn, dangerAlert),
                 // dismiss validations
                 new DismissalAlertValidator(dismissInfoAlert),
-                new DismissalAlertValidator(dismissWarningAlert),
+                new DismissalAlertValidator(dismissWarnAlert),
                 new DismissalAlertValidator(dismissSuccessAlert),
                 new DismissalAlertValidator(dismissDangerAlert)
         );
