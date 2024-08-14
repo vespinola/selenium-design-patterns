@@ -17,12 +17,9 @@ public class NotificationValidator extends ElementValidator {
     @Override
     public boolean validate() {
         this.button.click();
-        boolean isDisplayed = this.notification.isDisplayed();
-
+        boolean appearanceState = this.notification.isDisplayed(); //true
         Uninterruptibles.sleepUninterruptibly(4, TimeUnit.SECONDS);
-
-        boolean isNotDisplayed = !this.notification.isDisplayed();
-
-        return isDisplayed && isNotDisplayed;
+        boolean disappearanceState = this.notification.isDisplayed(); // false
+        return appearanceState && (!disappearanceState);
     }
 }
