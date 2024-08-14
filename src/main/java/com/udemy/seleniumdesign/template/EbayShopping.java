@@ -8,24 +8,24 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class AmazonShopping extends ShoppingTemplate {
+public class EbayShopping extends ShoppingTemplate {
     private WebDriver driver;
     private WebDriverWait wait;
     private String product;
 
-    @FindBy(id = "twotabsearchtextbox")
+    @FindBy(id = "gh-ac")
     private WebElement searchBox;
 
-    @FindBy(css = "input.nav-input")
+    @FindBy(id = "gh-btn")
     private WebElement searchBtn;
 
-    @FindBy(css = "span.a-size-medium")
+    @FindBy(css = "div.sitem__info a")
     private WebElement item;
 
-    @FindBy(id = "priceblock ourprice")
+    @FindBy(id = "prcIsum")
     private WebElement price;
 
-    public AmazonShopping(WebDriver driver, String product) {
+    public EbayShopping(WebDriver driver, String product) {
         this.driver = driver;
         this.product = product;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
@@ -34,7 +34,7 @@ public class AmazonShopping extends ShoppingTemplate {
 
     @Override
     public void launchSite() {
-        this.driver.get("https://www.amazon.com/");
+        this.driver.get("https://www.ebay.com/");
     }
 
     @Override
