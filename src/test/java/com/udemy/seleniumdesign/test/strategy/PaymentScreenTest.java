@@ -1,9 +1,6 @@
 package com.udemy.seleniumdesign.test.strategy;
 
-import com.udemy.seleniumdesign.strategy.CreditCard;
-import com.udemy.seleniumdesign.strategy.NetBanking;
-import com.udemy.seleniumdesign.strategy.PaymentOption;
-import com.udemy.seleniumdesign.strategy.PaymentScreen;
+import com.udemy.seleniumdesign.strategy.*;
 import com.udemy.seleniumdesign.test.BaseTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
@@ -21,12 +18,14 @@ public class PaymentScreenTest extends BaseTest {
     }
 
     @Test(dataProvider = "getData")
-    public void paymentTest(PaymentOption paymentOption, Map<String, String> paymentDetails) {
+    public void paymentTest(String option, Map<String, String> paymentDetails) {
         this.paymentScreen.goTo();
         this.paymentScreen.getUserInformation().enterDetails("a", "b", "c");
 
-        this.paymentScreen.setPaymentOption(paymentOption);
-//        this.paymentScreen.getPaymentOption().enterPaymentInformation(paymentDetails);
+        this.paymentScreen.setPaymentOption(
+                PaymentOptionFactory.get(option)
+        );
+
         this.paymentScreen.pay(paymentDetails);
         String orderNumber = this.paymentScreen.getOrder().placeOrder();
 
@@ -48,8 +47,8 @@ public class PaymentScreenTest extends BaseTest {
         nb.put("pin", "1234");
 
         return new Object[][] {
-                {new CreditCard(), cc},
-                {new NetBanking(), nb}
+                {"CC", cc},
+                {"NB", nb}
         };
     }
 }
