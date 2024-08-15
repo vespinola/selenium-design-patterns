@@ -1,59 +1,45 @@
 package com.udemy.seleniumdesign.template;
 
+import com.udemy.seleniumdesign.template.pages.AmazonProductDescPage;
+import com.udemy.seleniumdesign.template.pages.AmazonResultPage;
+import com.udemy.seleniumdesign.template.pages.AmazonSearchPage;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 public class AmazonShopping extends ShoppingTemplate {
-    private WebDriver driver;
-    private WebDriverWait wait;
     private String product;
+    private WebDriver driver;
 
-    @FindBy(id = "twotabsearchtextbox")
-    private WebElement searchBox;
-
-    @FindBy(css = "input.nav-input")
-    private WebElement searchBtn;
-
-    @FindBy(css = "span.a-size-medium")
-    private WebElement item;
-
-    @FindBy(id = "priceblock ourprice")
-    private WebElement price;
+    private AmazonSearchPage searchPage;
+    private AmazonResultPage resultPage;
+    private AmazonProductDescPage productDescPage;
 
     public AmazonShopping(WebDriver driver, String product) {
         this.driver = driver;
         this.product = product;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        PageFactory.initElements(driver, this);
+
+        this.searchPage = PageFactory.initElements(driver, AmazonSearchPage.class); //new AmazonSearchPage(driver);
+        this.resultPage = PageFactory.initElements(driver, AmazonResultPage.class); //new AmazonResultPage(driver);
+        this.productDescPage = PageFactory.initElements(driver, AmazonProductDescPage.class); //new AmazonProductDescPage(driver);
     }
 
     @Override
     public void launchSite() {
-        this.driver.get("https://www.amazon.com/");
+        searchPage.goTo();
     }
 
     @Override
     public void searchForProduct() {
-        this.searchBox.sendKeys(product);
-        this.searchBtn.click();
+        searchPage.search(product);
     }
 
     @Override
     public void selectProduct() {
-        this.wait.until((d) -> this.item.isDisplayed());
-        this.item.click();
+        resultPage.selectProduct();
     }
 
     @Override
     public void buy() {
-        this.wait.until((d) -> this.price.isDisplayed());
-        System.out.println(
-                this.price.getText()
-        );
+        productDescPage.buy();
     }
 }
