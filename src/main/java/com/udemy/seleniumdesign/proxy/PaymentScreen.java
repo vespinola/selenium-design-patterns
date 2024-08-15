@@ -9,14 +9,14 @@ public class PaymentScreen {
     private WebDriver driver;
 
     private UserInformation userInformation;
-    private Order order;
+    private OrderComponent order;
     private PaymentOption paymentOption;
 
     public PaymentScreen(final WebDriver driver) {
         this.driver = driver;
 
         this.userInformation = PageFactory.initElements(driver, UserInformation.class);
-        this.order = PageFactory.initElements(driver, Order.class);
+        this.order = new OrderComponentProxy(driver);
     }
 
     public void goTo() {
@@ -27,7 +27,7 @@ public class PaymentScreen {
         return userInformation;
     }
 
-    public Order getOrder() {
+    public OrderComponent getOrder() {
         return order;
     }
 
@@ -35,10 +35,6 @@ public class PaymentScreen {
         this.paymentOption = paymentOption;
         PageFactory.initElements(driver, this.paymentOption);
     }
-
-//    public PaymentOption getPaymentOption() {
-//        return paymentOption;
-//    }
 
     public void pay(Map<String, String> paymentDetails) {
         this.paymentOption.enterPaymentInformation(paymentDetails);
