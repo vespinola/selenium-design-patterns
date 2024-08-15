@@ -34,7 +34,7 @@ public class Decorators {
     //user role pages
     public static final Consumer<DashboardPage> guestPage = guestSelection
             .andThen(guestComponentPresent)
-            .andThen(suComponentPresent)
+            .andThen(suComponentNotPresent)
             .andThen(adminComponentNotPresent);
 
     public static final Consumer<DashboardPage> suPage = suSelection
